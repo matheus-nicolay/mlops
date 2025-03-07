@@ -65,7 +65,7 @@ def config_mlflow():
    os.environ['MLFLOW_TRACKING_URI'] = mlflow_tracking_uri
    os.environ['MLFLOW_TRACKING_USERNAME'] = mlflow_tracking_username
    os.environ['MLFLOW_TRACKING_PASSWORD'] = mlflow_tracking_password
-   
+
    mlflow.set_tracking_uri(mlflow_tracking_uri)
 
    mlflow.tensorflow.autolog(log_models=True,
@@ -74,7 +74,7 @@ def config_mlflow():
 
 
 def train_model(model, X_train, y_train, is_train=True):
-   with mlflow.start_run(run_name='experiment_0mlops_ead') as run:
+   with mlflow.start_run(run_name='fetal_health') as run:
       model.fit(X_train,
                   y_train,
                   epochs=50,
