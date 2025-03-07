@@ -74,12 +74,21 @@ def config_mlflow():
 
 
 def train_model(model, X_train, y_train, is_train=True):
-   with mlflow.start_run(run_name='fetal_health') as run:
-      model.fit(X_train,
+    with mlflow.start_run(run_name='fetal_health') as run:
+        model.fit(X_train,
                   y_train,
                   epochs=50,
                   validation_split=0.2,
                   verbose=3)
+        
+        # Salvar o modelo no MLflow
+        mlflow.tensorflow.log_model(model, "model")
+
+        # Registrar no Model Registry
+        model_uri = f"runs:/{run.info.run_id}/model"
+        registered_model = mlflow.register_model(model_uri, "fetal_health")
+
+        print(f"Modelo registrado: {registered_model.name} Versão: {registered_model.version}")
       
 if __name__ == "__main__":
    X, y = read_data()
