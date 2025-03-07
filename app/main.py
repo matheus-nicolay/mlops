@@ -4,7 +4,7 @@ import mlflow
 import uvicorn
 import numpy as np
 from pydantic import BaseModel
-from fastapi import FASTAPI
+from fastapi import FastApi
 
 class FetalHealthData(BaseModel):
     accelerations: float
@@ -12,7 +12,7 @@ class FetalHealthData(BaseModel):
     uterine_contractions: float
     severe_decelerations: float
 
-app = FASTAPI(title="Fetal Health API", 
+app = FastApi(title="Fetal Health API", 
               openapi_tags=[
                   {
                     "name": "Health",
